@@ -3,13 +3,17 @@
 import cac from 'cac';
 import inquirer from 'inquirer';
 import shell from 'shelljs';
+import { fileURLToPath } from 'url';
 import { fs, path } from 'zx';
 import templates from './templates.js';
 
 const curWorkDir = process.cwd();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const { version } = JSON.parse(
-  fs.readFileSync(path.resolve(curWorkDir, './package.json'), 'utf-8'),
+  fs.readFileSync(path.resolve(__dirname, '../package.json'), 'utf-8'),
 );
 
 // console.log(version);
