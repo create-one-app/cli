@@ -1,6 +1,6 @@
 {
   "name": "create-one-app",
-  "version": "0.2.3-alpha.0",
+  "version": "0.3.0-alpha.0",
   "bin": {
     "create-one-app": "build/run.js"
   },
