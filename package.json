@@ -2,7 +2,7 @@
   "name": "create-one-app",
   "version": "0.2.1-alpha.0",
   "bin": {
-    "coa": "build/run.js"
+    "create-one-app": "build/run.js"
   },
   "main": "build/run.js",
   "license": "MIT",
