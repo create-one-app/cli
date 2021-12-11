@@ -4,7 +4,7 @@ import cac from 'cac';
 import inquirer from 'inquirer';
 import shell from 'shelljs';
 import { fs, path } from 'zx';
-import templates from './templates';
+import templates from './templates.js';
 
 const curWorkDir = process.cwd();
 
