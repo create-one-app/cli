@@ -18,7 +18,8 @@
     "suppressImplicitAnyIndexErrors": true,
     "resolveJsonModule": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "skipLibCheck": true
   },
-  "exclude": ["node_modules", "build", "dist", "example"]
+  "exclude": ["node_modules/**", "build", "dist", "example"]
 }
