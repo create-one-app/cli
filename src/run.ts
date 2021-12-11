@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import cac from 'cac';
 import inquirer from 'inquirer';
 import shell from 'shelljs';
