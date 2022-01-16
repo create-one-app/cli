@@ -16,8 +16,6 @@ const { version } = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../package.json'), 'utf-8'),
 );
 
-// console.log(version);
-
 const cacheDir = path.resolve(curWorkDir, './.coa_cache');
 
 const cli = cac('coa');
@@ -83,7 +81,6 @@ function create({
       // console.log('Program stderr:', stderr);
       process.exit(1);
     } else {
-      // TODO: copy file
       // console.log('Exit code:', code);
       fs.copySync(projectCache, projectDir, {
         filter: (src) => {
@@ -121,7 +118,7 @@ async function selectTemplate() {
     const key = keyMatch[1];
     const template = templates[key];
 
-    console.info(template);
+    // console.info(template);
 
     await fs.mkdir(cacheDir);
     const { url } = template;
