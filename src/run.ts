@@ -5,7 +5,7 @@ import inquirer from 'inquirer';
 import shell from 'shelljs';
 import { fileURLToPath } from 'url';
 import { fs, path } from 'zx';
-import templates from './templates.js';
+import { getTemplates } from './templates.js';
 
 const curWorkDir = process.cwd();
 
@@ -97,6 +97,8 @@ function create({
 }
 
 async function selectTemplate() {
+  const templates = (await getTemplates()) as any;
+
   const templateSelects = Object.keys(templates).map((key) => {
     const template = templates[key];
     return `[${key}] ${template.desc}`;
