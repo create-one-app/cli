@@ -5,6 +5,7 @@ import inquirer from 'inquirer';
 import shell from 'shelljs';
 import { fileURLToPath } from 'url';
 import { fs, path } from 'zx';
+import log from './log.js';
 import { getTemplates } from './templates.js';
 
 const curWorkDir = process.cwd();
@@ -26,9 +27,8 @@ cli
     default: '',
   })
   .action((project, options) => {
-    // console.log('project', project);
     if (!project) {
-      console.log('请输入项目名，模版将复制到该目录下');
+      log.error('请输入项目名，模版将复制到该项目名的目录下');
       process.exit(1);
     }
 
@@ -36,7 +36,7 @@ cli
 
     // NOTE: 判断目录是否已存在
     if (fs.existsSync(projectDir)) {
-      console.log(`项目：${project} 已存在，请修改项目名`);
+      log.error(`项目：${project} 已存在，请修改项目名`);
       process.exit(1);
     }
 
@@ -69,7 +69,7 @@ function create({
 }) {
   if (!shell.which('git')) {
     //在控制台输出内容
-    shell.echo('Sorry, this script requires git');
+    log.error('Sorry, this script requires git');
     shell.exit(1);
   }
 
@@ -77,18 +77,15 @@ function create({
 
   shell.exec(`git clone ${url} ${projectCache} -q`, function (code) {
     if (code !== 0) {
-      // console.log('Program output:', stdout);
-      // console.log('Program stderr:', stderr);
       process.exit(1);
     } else {
-      // console.log('Exit code:', code);
       fs.copySync(projectCache, projectDir, {
         filter: (src) => {
           return !/\.git/.test(src);
         },
       });
       fs.removeSync(cacheDir);
-      console.log('项目已生成');
+      log.success('项目已生成');
     }
   });
 }
@@ -101,8 +98,6 @@ async function selectTemplate() {
     return `[${key}] ${template.desc}`;
   });
 
-  // select
-
   const answers = await inquirer.prompt([
     {
       type: 'list',
@@ -112,20 +107,17 @@ async function selectTemplate() {
     },
   ]);
 
-  // console.info('Answer:', answers.template);
   const keyMatch = answers.template.match(/^\[(\S+)\]/);
   if (keyMatch) {
     const key = keyMatch[1];
     const template = templates[key];
-
-    // console.info(template);
 
     await fs.mkdir(cacheDir);
     const { url } = template;
     return url;
     //检查控制台是否以运行`git `开头的命令
   } else {
-    console.error('代码运行错误，获取模版 key 错误');
+    log.error('代码运行错误，获取模版 key 错误');
     process.exit(1);
   }
 }
