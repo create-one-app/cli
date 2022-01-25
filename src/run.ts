@@ -81,7 +81,7 @@ function create({
     } else {
       fs.copySync(projectCache, projectDir, {
         filter: (src) => {
-          return !/\.git/.test(src);
+          return !/\.git$/.test(src);
         },
       });
       fs.removeSync(cacheDir);
