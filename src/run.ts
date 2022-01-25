@@ -5,6 +5,7 @@ import inquirer from 'inquirer';
 import shell from 'shelljs';
 import { fileURLToPath } from 'url';
 import { fs, path } from 'zx';
+import open from 'open';
 import log from './log.js';
 import { getTemplates } from './templates.js';
 
@@ -49,6 +50,12 @@ cli
       });
     }
   });
+
+cli.command('view', 'view template list').action(() => {
+  const url =
+    'https://heady-monitor-c9a.notion.site/create-one-app-templates-706f824c3c4d48f3bf1a2e0d02c5fe3e';
+  open(url);
+});
 
 // Display help message when `-h` or `--help` appears
 cli.help();
