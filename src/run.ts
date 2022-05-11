@@ -99,10 +99,15 @@ function create({
 
 async function selectTemplate() {
   const templates = (await getTemplates()) as any;
-
-  const templateSelects = Object.keys(templates).map((key) => {
+  const maxLengthKey = Object.keys(templates).sort(
+    (a, b) => b.length - a.length,
+  )[0];
+  console.log('最长', maxLengthKey);
+  const templateSelects = Object.keys(templates).map((key, index) => {
     const template = templates[key];
-    return `[${key}] ${template.desc}`;
+    const diff = maxLengthKey.length - key.length;
+    console.log('diff', diff);
+    return `${index + 1}. [${key}] ${Array(diff).fill(' ')}${template.desc}`;
   });
 
   const answers = await inquirer.prompt([
